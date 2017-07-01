@@ -1,0 +1,73 @@
+#!/bin/bash
+clear
+
+# The functions of the script are below:
+
+function beginInstall {
+   clear
+   echo
+   echo
+   echo 
+   read -p "Installation starting.  Press any ENTER to continue." var
+if [ ${#var} -eq 0 ]; then
+  clear
+fi
+}
+
+function getRPCUsernamAndPass {
+ echo 
+ echo 
+ echo Please enter your desired RPC Username 
+ read -n 100 rpcUserName
+ echo
+ echo 
+ echo Please enter your desired RPC Password 
+ read -s rpcPassword
+}
+
+
+function exitScript {
+
+  clear
+  echo
+  echo
+  echo   Thank you for useing the Awesome Chaincoin Masternode Installer. 
+  echo
+  echo ~~~~         Good Bye         ~~~~~
+}
+
+function testArgument {
+
+   echo your rpc username is: $rpcUserName
+   echo your rpc password is: $rpcPassword
+}
+
+ 
+ 
+
+
+# The install script text area begins here:
+
+
+echo
+echo ~~*~ Welcome to the most Awesome Chaincoin Masternode Installer! ~*~~
+echo  
+echo  -- This script assumes you are on at least Debian 8 or Ubuntu 14.04+
+echo
+echo  -- This script assumes you have created a new user account, and you are executing this script in a non-root account with sudo accesss
+echo 
+echo
+  echo      Please press y to acknowledge and begin the install
+  echo             press n to exit
+  read -p "         (y/n)? " answer
+case ${answer:0:1} in
+    y|Y )
+        beginInstall
+        getRPCUsernamAndPass
+        testArgument
+    ;;
+    * )
+        exitScript
+    ;;
+esac
+
