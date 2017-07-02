@@ -1,13 +1,18 @@
 #!/bin/bash
 clear
 
+# These are the script varibles
+# $rpcUserName
+# $rpcPassword
+
+
 # The functions of the script are below:
+
 
 function beginInstall {
    clear
    echo
-   echo
-   echo 
+   twoSpace
    read -p "Installation starting.  Press any ENTER to continue." var
 if [ ${#var} -eq 0 ]; then
   clear
@@ -15,12 +20,10 @@ fi
 }
 
 function getRPCUsernamAndPass {
- echo 
- echo 
+ twoSpace
  echo Please enter your desired RPC Username 
  read -n 100 rpcUserName
- echo
- echo 
+ twoSpace
  echo Please enter your desired RPC Password 
  read -s rpcPassword
 }
@@ -29,8 +32,7 @@ function getRPCUsernamAndPass {
 function exitScript {
 
   clear
-  echo
-  echo
+  twoSpace
   echo   Thank you for useing the Awesome Chaincoin Masternode Installer. 
   echo
   echo ~~~~         Good Bye         ~~~~~
@@ -42,10 +44,77 @@ function testArgument {
    echo your rpc password is: $rpcPassword
 }
 
+function twoSpace {
+  echo
+  echo
+}
+
+function changeSwapSize {
+ sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=1000;sudo mkswap /var/swap.img;sudo swapon /var/swap.img;sudo chmod 0600 /var/swap.img;sudo chown root:root /var/swap.img;
  
+ sed '$ a /var/swap.img none swap sw 0 0' /etc/fstab
+}
  
+function installDependencies {
+sudo apt-get update;sudo apt-get install automake;sudo apt-get install libdb++-dev;sudo apt-get install build-essential libtool autotools-dev;sudo apt-get install autoconf pkg-config libssl-dev;sudo apt-get install libboost-all-dev;sudo apt-get install libminiupnpc-dev;sudo apt-get install git;sudo apt-get install software-properties-common;sudo apt-get install python-software-properties;sudo apt-get install g++;sudo add-apt-repository ppa:bitcoin/bitcoin;sudo apt-get update;sudo apt-get install libdb4.8-dev libdb4.8++-dev -y;
+yes
+}
 
 
+function createChaincoinConf {
+touch chaincoin.conf
+echo "pcuser=$rpcUserName\n\nrpcpassword=$rpcPassword\n\nserver=1" >> chaincoin.conf
+}
+
+
+function installChaincoinSoftware {
+cd ~
+git clone https://github.com/chaincoin/chaincoin.git
+cd ~/chaincoin/
+sudo ./autogen.sh
+sudo ./configure –-without-gui
+make
+sudo make install
+cd ~/.chaincoin/
+mkdir ~/.chaincoin/
+createChaincoinConf
+
+}
+
+
+function displaySyncChaincoinNodePrompt {
+ # acknowledge user has sent funds and that they are present on the blockchain,
+ # and will reflect as soon as node is finished syncing
+ # tell user that chaincoin is about to start and sync.  
+ # tell user that it may take at least 3 hours to sync
+ # show sync status to user with 'get watch'
+ 
+}
+
+function getAccountAddress {
+
+}
+
+function displayPromptToSendFunds {
+ # here disaply a prompt with the chaincoin address to send the funds
+ $ once the user clicks enter and acknowlegdes the funds are sent move on
+}
+
+function syncChaincoinNode {
+cd ~
+chaincoind –-daemon
+}
+
+
+
+
+
+
+
+
+
+
+# -----------------------------------
 # The install script text area begins here:
 
 
@@ -55,8 +124,7 @@ echo
 echo  -- This script assumes you are on at least Debian 8 or Ubuntu 14.04+
 echo
 echo  -- This script assumes you have created a new user account, and you are executing this script in a non-root account with sudo accesss
-echo 
-echo
+  twoSpace
   echo      Please press y to acknowledge and begin the install
   echo             press n to exit
   read -p "         (y/n)? " answer
@@ -64,7 +132,11 @@ case ${answer:0:1} in
     y|Y )
         beginInstall
         getRPCUsernamAndPass
-        testArgument
+        changeSwapSize
+        installDependencies
+        getAccountAddress
+        displayPromptToSendFunds
+        displaySyncChaincoinNodePrompt
     ;;
     * )
         exitScript
