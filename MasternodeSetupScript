@@ -1,23 +1,38 @@
 #!/bin/bash
 clear
 
-# These are the script varibles
-# $rpcUserName
-# $rpcPassword
-
+# ---------------------------
+# ---------------------------
+# ---------------------------
+# ---------------------------
 
 # The functions of the script are below:
 
+function twoSpace {
+  echo
+  echo
+}
 
 function beginInstall {
    clear
    echo
    twoSpace
-   read -p "Installation starting.  Press any ENTER to continue." var
+   read -p "Installation starting.  Press the ENTER key to continue." var
 if [ ${#var} -eq 0 ]; then
   clear
 fi
 }
+
+
+function getIpAddress {
+ clear 
+ twoSpace
+ echo sample IP Address: 55.555.55.555
+ twoSpace
+  echo Please enter your server Ip Address:
+   read -n 100 serverIpAddress
+}
+
 
 function getRPCUsernamAndPass {
  twoSpace
@@ -26,6 +41,8 @@ function getRPCUsernamAndPass {
  twoSpace
  echo Please enter your desired RPC Password 
  read -s rpcPassword
+ getIpAddress
+ 
 }
 
 
@@ -38,76 +55,154 @@ function exitScript {
   echo ~~~~         Good Bye         ~~~~~
 }
 
-function testArgument {
 
-   echo your rpc username is: $rpcUserName
-   echo your rpc password is: $rpcPassword
-}
-
-function twoSpace {
-  echo
-  echo
-}
 
 function changeSwapSize {
- sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=1000;sudo mkswap /var/swap.img;sudo swapon /var/swap.img;sudo chmod 0600 /var/swap.img;sudo chown root:root /var/swap.img;
- 
- sed '$ a /var/swap.img none swap sw 0 0' /etc/fstab
+clear
+echo step 1
+sudo swapoff /var/swap.img
+sudo swapoff /etc/fstab
+clear
+twoSpace
+echo about to change swap size
+ sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=1000;sudo mkswap /var/swap.img;sudo swapon /var/swap.img;sudo chmod 0600 /var/swap.img;sudo chown root:root /var/swap.img;sudo nano /etc/fstab
+
 }
  
 function installDependencies {
-sudo apt-get update;sudo apt-get install automake;sudo apt-get install libdb++-dev;sudo apt-get install build-essential libtool autotools-dev;sudo apt-get install autoconf pkg-config libssl-dev;sudo apt-get install libboost-all-dev;sudo apt-get install libminiupnpc-dev;sudo apt-get install git;sudo apt-get install software-properties-common;sudo apt-get install python-software-properties;sudo apt-get install g++;sudo add-apt-repository ppa:bitcoin/bitcoin;sudo apt-get update;sudo apt-get install libdb4.8-dev libdb4.8++-dev -y;
-yes
+clear
+echo step 2
+echo  The dependencies will now be installed. Please press y to all prompts
+read -p "Press enter to continue"
+sudo apt-get update;sudo apt-get install automake;sudo apt-get install libdb++-dev;sudo apt-get install build-essential libtool autotools-dev;sudo apt-get install autoconf pkg-config libssl-dev;sudo apt-get install libboost-all-dev;sudo apt-get install libminiupnpc-dev;sudo apt-get install git;sudo apt-get install software-properties-common;sudo apt-get install python-software-properties;sudo apt-get install g++;sudo add-apt-repository ppa:bitcoin/bitcoin;sudo apt-get update;sudo apt-get install libdb4.8-dev libdb4.8++-dev ;
+
 }
 
 
 function createChaincoinConf {
-touch chaincoin.conf
-echo "pcuser=$rpcUserName\n\nrpcpassword=$rpcPassword\n\nserver=1" >> chaincoin.conf
-}
-
-
-function installChaincoinSoftware {
 cd ~
-git clone https://github.com/chaincoin/chaincoin.git
-cd ~/chaincoin/
-sudo ./autogen.sh
-sudo ./configure –-without-gui
-make
-sudo make install
-cd ~/.chaincoin/
-mkdir ~/.chaincoin/
-createChaincoinConf
+mkdir .chaincoin/
+cd .chaincoin
+clear
+echo step 4
+echo edit your chaincoin.conf file
+read -p "Press enter to continue"
+clear
+touch chaincoin.conf
+sudo nano chaincoin.conf
 
-}
-
-
-function displaySyncChaincoinNodePrompt {
- # acknowledge user has sent funds and that they are present on the blockchain,
- # and will reflect as soon as node is finished syncing
- # tell user that chaincoin is about to start and sync.  
- # tell user that it may take at least 3 hours to sync
- # show sync status to user with 'get watch'
- 
-}
-
-function getAccountAddress {
-
-}
-
-function displayPromptToSendFunds {
- # here disaply a prompt with the chaincoin address to send the funds
- $ once the user clicks enter and acknowlegdes the funds are sent move on
 }
 
 function syncChaincoinNode {
 cd ~
-chaincoind –-daemon
+echo about to start chaincoind Daemon...
+chaincoind -daemon
+echo pausing 10 seconds to boot up
+sleep 10s
+echo boot complete! 
+read -p "Press enter to continue"
+
+}
+
+function installChaincoinSoftware {
+clear
+echo step 3
+echo Chaincoin software will now be installed.  
+echo WARNING, this process may take up to an hour to complete
+read -p "Press enter to continue"
+clear
+cd ~
+git clone https://github.com/chaincoin/chaincoin.git
+cd ~/chaincoin/
+sleep 5s
+sudo ./autogen.sh
+sleep 5s
+sudo ./configure 
+sleep 5s
+sudo make
+sleep 5s
+sudo make install
+sleep 5s
+
 }
 
 
 
+function getAccountAddress {
+ clear
+ echo step 5a
+ echo
+ chaincoind getaccountaddress 0
+ echo please copy this address, this is your masternode address, you will need to send 1000.00 CHC to this address
+ echo
+ echo
+read -p "Press enter to continue"
 
+ clear
+  echo step 5b
+ echo
+  chaincoind masternode genkey
+ echo
+ echo
+ echo please copy this key, this is your masternode private key.  You will need it later
+
+read -p "Press enter to continue"
+
+}
+
+function displayPromptToSendFunds {
+ clear
+  echo Step 8
+  echo
+ echo Your Chaincoin wallet software has been installed!  We now need to fund your masternode
+ echo Please send exactly 1000.00 CHC to your CHC masternode at the masternode address you have written down.
+ echo for reference, please see step 5a.
+  echo
+  echo
+  echo Once that is complete, the next step is downloading the CHC blockchain and syncing your masternode
+  echo Your funds will appear in your masternode as soon as your masnternode is finished syncing
+  echo WARNING: This process may take 4 hours or more. 
+  echo at then end of the 4 hours please run this command to start your masternode
+  echo
+  echo chaincoind masternode start
+  echo
+  echo
+  echo After that your node will be complete!
+read -p "Press enter to complete the installation, remember to write down the command and run it in 4 hours"
+
+}
+
+
+function updateChainCoinConf {
+ clear
+ echo step 7
+ echo
+ echo We will now update your chaincoin.conf.  Please proceed to step 7 on the instructions
+ echo 
+ echo
+ read -p "Please press ENTER to continue" var
+if [ ${#var} -eq 0 ]; then
+
+   
+   echo about to go home
+   cd ~
+   echo about to edit chaincoin.conf
+   sudo nano .chaincoin/chaincoin.conf
+   
+fi
+
+
+}
+
+function showCompleteMessage {
+clear
+echo 
+echo 
+echo 
+echo Installation Complete! make sure to start your masternode after syncing is complete in approx 4 hours
+read -p "Press enter to exit"
+
+}
 
 
 
@@ -130,13 +225,16 @@ echo  -- This script assumes you have created a new user account, and you are ex
   read -p "         (y/n)? " answer
 case ${answer:0:1} in
     y|Y )
-        beginInstall
-        getRPCUsernamAndPass
-        changeSwapSize
-        installDependencies
-        getAccountAddress
-        displayPromptToSendFunds
-        displaySyncChaincoinNodePrompt
+ beginInstall
+# changeSwapSize
+# installDependencies
+# installChaincoinSoftware
+createChaincoinConf
+syncChaincoinNode
+getAccountAddress
+updateChainCoinConf
+displayPromptToSendFunds
+showCompleteMessage
     ;;
     * )
         exitScript
