@@ -4,15 +4,26 @@
 
 ### After, please login as root, and create a new user.  Give that new user sudo rights
 
-#### run these commands
-##### adduser <\newUsername\> (without the < >)
-##### usermod -aG sudo <\newUsername\> (without the < >)
+### run these commands
+--------------------
+#### adduser < newUsername >
+######  (without the < >)
+##### Example:
+#### adduser awesomeUser101
+--------------------
+#### usermod -aG sudo < newUsername >
+######  (without the < >)
+##### Example:
+#### usermod -aG sudo awesomeUser101
+--------------------
 
 ### Success! Now log out of root, and log back into the VPS as your new user
 
 ### Now, download a FTP client such as fileZilla.  Upload the install file to your newUser directory located here:
-##### /home/newUserDirectory
-
+##### /home/newUsername
+##### Example:
+##### /home/awesomeUser101
+--------------------
 ###  Now that you have uploaded the install file in your user's directory, go back to the VPS SSH terminal and run the tool:
 ##### ./MasternodeSetupScript (this starts the install process)
 
@@ -37,9 +48,20 @@
 ##### Do not include the < > 
 -----------------------
 
-rpcuser=<\any-username/>
+rpcuser=< any-username >
 
-rpcpassword=<\any-unique-password/>
+rpcpassword=< any-unique-password >
+
+server=1
+
+-----------------------
+
+##### EXAMPLE:
+-----------------------
+
+rpcuser=testUser101
+
+rpcpassword=password123
 
 server=1
 
@@ -65,11 +87,23 @@ listen=1
 
 masternode=1
 
-masternodeprivkey=<\masternode-wallet-private-key\>
+masternodeprivkey=< masternode-wallet-private-key >
 
-masternodeaddr=<\your server ip\>:11994
+masternodeaddr=< your server ip >:11994
 
+-----------------------
+##### EXAMPLE:
+-----------------------
 
+listen=1
+
+masternode=1
+
+masternodeprivkey=554asd545asd454d5qw6d4qwd56qewfw23
+
+masternodeaddr=55.555.55.555:11994
+
+-----------------------
 
 #### 7.) Now we need to fund your masternode and sync it.  Please send your 1000.00 CHC to your masternode address and click [ENTER] when that is complete
 
@@ -78,32 +112,30 @@ masternodeaddr=<\your server ip\>:11994
 
 ##### Please complete the installer, and in 4 hours return and start your masternode by running this command:
 
-chaincoind masternode start
-
+### chaincoind masternode start
+-------------------------------
 # Installation Complete!
 
 -------------------------------
-##### If you wish to start your masternode before the 4 hours (4 hours is suggested to ensure the masternode is finished syncing) please follow these directions:
+### If you wish to start your masternode before the 4 hours (4 hours is suggested to ensure the masternode is finished syncing) please follow these directions:
 
 ##### run this command:
 
-watch chaincoind getinfo
+### watch chaincoind getinfo
 
 ###### Once your node finishes syncing, you will see the 1000.00 CHC in your balance. 
 ###### Press Ctrl + C to exit the ‘watch’ screen.
 
 ###### To check the transaction count please run this:
 
-chaincoind listtransactions
+### chaincoind listtransactions
 
 ###### (once transaction count for the intial 1000.00 is over 15, start the masternode)
 
 
-
-
---------------------------
---------------------------
 -------------------------
+-------------------------
+
 
 ### Helpful commands:
 
