@@ -225,10 +225,10 @@ echo  -- This script assumes you have created a new user account, and you are ex
   read -p "         (y/n)? " answer
 case ${answer:0:1} in
     y|Y )
- beginInstall
-# changeSwapSize
-# installDependencies
-# installChaincoinSoftware
+beginInstall
+changeSwapSize
+installDependencies
+installChaincoinSoftware
 createChaincoinConf
 syncChaincoinNode
 getAccountAddress
