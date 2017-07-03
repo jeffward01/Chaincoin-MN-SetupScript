@@ -107,7 +107,7 @@ masternodeaddr=55.555.55.555:11994
 
 #### 7.) Now we need to fund your masternode and sync it.  Please send your 1000.00 CHC to your masternode address and click [ENTER] when that is complete
 ##### Note: Your masternode must recieve exactly 1000.00 CHC in the transaction.  If you are using the CHC Desktop wallet, please send 1000.00 CHC to the address
-##### If you are using a different wallet such as an exchange wallet, please send 1000.001, where the .0001 is the transcation fee incured from the transaction.
+##### If you are using a different wallet such as an exchange wallet, please send 1000.001, where the .001 is the transcation fee incured from the transaction.
 
 ###### Note: This next step is syncing, and may take up to 4 hours.  You are downloading the CHC blockchain to your local masternode.  You are also incurring 15+ confirmations on your deposit of 1000.00 CHC.  After you have 15+ confirmations you may start your masternode.
 
