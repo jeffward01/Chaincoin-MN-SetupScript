@@ -23,6 +23,17 @@
 ##### /home/newUsername
 ##### Example:
 ##### /home/awesomeUser101
+
+### Alternativly to fileZilla, run these commands:
+#### sudo apt-get install git
+### Now navigate to your users home directory:
+##### cd /home/newUsername
+##### Example:
+##### cd /home/awesomeUser101
+### Install the script by running:
+##### sudo git clone https://github.com/jeffward01/Chaincoin-MN-SetupScript.git
+
+
 --------------------
 ###  Now that you have uploaded the install file in your user's directory, go back to the VPS SSH terminal and run the tool:
 ##### ./MasternodeSetupScript (this starts the install process)
