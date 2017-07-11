@@ -32,9 +32,26 @@
 ##### cd /home/awesomeUser101
 ### Install the script by running:
 ##### sudo git clone https://github.com/jeffward01/Chaincoin-MN-SetupScript.git
+##### cd Chaincoin-MN-SetupScript
 
 
 --------------------
+### Before we begin, lets ensure that the newly created user has the proper permission to run the MasternodeSetupScript, run these commands:
+#### Ensure you are in the directory where you downloaded the MasternodeSetupScript.  You should not need to navigate away from your current directory. 
+###### cd /home/myUserName/Chaincoin-MN-SetupScript
+#### Grant permissions:
+##### sudo chmod 777 MasternodeSetupScript
+##### sudo chmod 777 username:sudo MasternodeSetupScript
+
+### Example:
+###### cd /home/awesomeUser101/Chaincoin-MN-SetupScript
+##### sudo chmod 777 MasternodeSetupScript
+##### sudo chmod 777 awesomeUser101:sudo MasternodeSetupScript
+
+-----------------------
+
+
+
 ###  Now that you have uploaded the install file in your user's directory, go back to the VPS SSH terminal and run the tool:
 ##### ./MasternodeSetupScript (this starts the install process)
 
