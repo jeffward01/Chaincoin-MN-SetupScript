@@ -33,12 +33,12 @@
 ##### /home/awesomeUser101
 
 ### Alternativly to fileZilla, run these commands:
-#### sudo apt-get install git
-### Now navigate to your users home directory:
+##### sudo apt-get install git
+#### Now navigate to your users home directory:
 ##### cd /home/newUsername
 ##### Example:
 ##### cd /home/awesomeUser101
-### Install the script by running:
+#### Install the script by running:
 ##### sudo git clone https://github.com/jeffward01/Chaincoin-MN-SetupScript.git
 ##### cd Chaincoin-MN-SetupScript
 
