@@ -217,6 +217,8 @@ masternodeaddr=55.555.55.555:11994
 -------------------------
 
 
+### If you liked this script please give it a STAR at the top right 
+
 
 
 
