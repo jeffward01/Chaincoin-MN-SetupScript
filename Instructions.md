@@ -1,5 +1,13 @@
 # CHC Masternode Installation Instructions
 
+-----------------------------------
+
+##### Video Tutorial by Cliff On Crypto: https://www.youtube.com/watch?v=azBopV3Ldww 
+
+##### Cliff On Crypto: https://www.youtube.com/channel/UC7aZpep7PnlRcvljRRwh0Gw
+
+-----------------------------------
+
 ### Please create a new VPS using 64 bit Ubuntu 14.04
 
 ### After, please login as root, and create a new user.  Give that new user sudo rights
