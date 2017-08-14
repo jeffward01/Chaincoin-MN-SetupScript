@@ -74,7 +74,8 @@ clear
 echo step 2
 echo  The dependencies will now be installed. Please press y to all prompts
 read -p "Press enter to continue"
-sudo apt-get update;sudo apt-get install automake;sudo apt-get install libdb++-dev;sudo apt-get install build-essential libtool autotools-dev;sudo apt-get install autoconf pkg-config libssl-dev;sudo apt-get install libboost-all-dev;sudo apt-get install libminiupnpc-dev;sudo apt-get install git;sudo apt-get install software-properties-common;sudo apt-get install python-software-properties;sudo apt-get install g++;sudo add-apt-repository ppa:bitcoin/bitcoin;sudo apt-get update;sudo apt-get install libdb4.8-dev libdb4.8++-dev ;
+sudo apt-get -y install libprotobuf-dev libevent-dev # Ubuntu fix
+sudo apt-get -y update;sudo apt-get -y install automake;sudo apt-get -y install libdb++-dev;sudo apt-get -y install build-essential libtool autotools-dev;sudo apt-get -y install autoconf pkg-config libssl-dev;sudo apt-get -y install libboost-all-dev;sudo apt-get -y install libminiupnpc-dev;sudo apt-get -y install git;sudo apt-get -y install software-properties-common;sudo apt-get -y install python-software-properties;sudo apt-get -y install g++;sudo add-apt-repository ppa:bitcoin/bitcoin;sudo apt-get update;sudo apt-get -y install libdb4.8-dev libdb4.8++-dev ;
 
 }
 
